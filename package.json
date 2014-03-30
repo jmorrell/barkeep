@@ -1,0 +1,25 @@
+{
+  "name": "static-lr",
+  "version": "0.1.0",
+  "description": "",
+  "bin": {
+    "static-lr": "./bin/serve"
+  },
+  "preferGlobal": true,
+  "author": "Jeremy Morrell <morrell.jeremy@gmail.com> (http://rathercurio.us/)",
+  "license": "MIT",
+  "keywords": [
+    "live",
+    "reload",
+    "livereload",
+    "server"
+  ],
+  "dependencies": {
+    "gaze": "~0.5.1",
+    "express": "~3.5.1",
+    "open": "0.0.4",
+    "cors": "~2.2.0",
+    "tamper": "~0.1.0",
+    "tiny-lr": "0.0.5"
+  }
+}

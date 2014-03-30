@@ -1,0 +1,49 @@
+#!/user/bin/env node
+
+var tinylr = require('tiny-lr');
+var express = require('express');
+var Gaze = require('gaze').Gaze;
+var open = require('open');
+var cors = require('cors');
+var path = require('path');
+var inject = require('../src/inject.js');
+var urlCallback = require('../src/url-callback.js');
+
+var root = process.cwd();
+var staticPort = 9000;
+var lrPort = 35729;
+
+var server = tinylr();
+var app = express();
+var gaze = new Gaze(null, { debounceDelay: 200 });
+var watchedFiles = [];
+
+app
+  .use(cors())
+  .use(inject('http://localhost:35729/livereload.js'))
+  .use(urlCallback(addToGaze))
+  .use(express.static(root))
+  .listen(staticPort, openBrowser);
+
+server.listen(lrPort);
+
+function addToGaze(url) {
+  // If it's a directory, add index.html to the end
+  if (/\/$/.test(url)) {
+    url += 'index.html';
+  }
+
+  if (watchedFiles.indexOf(url) === -1) {
+    watchedFiles.push(url);
+    gaze.add(path.join(root, url));
+    console.log('Added:', url, 'to list of watched files');
+  }
+}
+
+gaze.on('changed', function(filepath) {
+  server.changed({ body: { files: filepath.replace(root, '') } });
+});
+
+function openBrowser() {
+  open('http://localhost:' + staticPort);
+}
