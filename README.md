@@ -1,11 +1,10 @@
-
 # static-lr
 
 Start a static file server in the current directory, inject a livereload snippet 
 into the HTML files served, and update the browser without refreshing whenever
 anything changes.
 
-![screencast](http://jmorrell.github.io/static-lr/img/screencast.gif)
+![screencast](https://i.cloudup.com/FfO7zr12WW.gif)
 
 ## Installation
 
