@@ -1,4 +1,4 @@
-#!/user/bin/env node
+#!/usr/bin/env node
 
 var tinylr = require('tiny-lr');
 var express = require('express');
