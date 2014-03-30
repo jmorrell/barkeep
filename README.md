@@ -1,4 +1,4 @@
-# static-lr
+# barkeep
 
 Start a static file server in the current directory, inject a livereload snippet 
 into the HTML files served, and update the browser without refreshing whenever
@@ -9,14 +9,14 @@ anything changes.
 ## Installation
 
 ```
-npm install -g static-lr
+npm install -g barkeep
 ```
 
 ## Usage
 
 ```
 cd {{ your project's directory }}
-tiny-lr
+barkeep
 ```
 
 ## Notes
