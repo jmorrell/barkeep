@@ -2,6 +2,7 @@
   "name": "barkeep",
   "version": "0.1.0",
   "description": "Serve the contents of a directory and livereload those that change.",
+  "main": "index.js",
   "bin": {
     "barkeep": "./bin/barkeep"
   },
