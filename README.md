@@ -1,8 +1,9 @@
 # barkeep
 
-Start a static file server in the current directory, inject a livereload snippet 
-into the HTML files served, and update the browser without refreshing whenever
-anything changes.
+Serve the files in the current directory and update the browser when they change
+without refreshing. 
+
+No plugins. No app. No scripts.
 
 ![screencast](https://i.cloudup.com/FfO7zr12WW.gif)
 

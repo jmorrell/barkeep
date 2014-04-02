@@ -13,7 +13,8 @@
     "live",
     "reload",
     "livereload",
-    "server"
+    "server",
+    "static"
   ],
   "homepage": "https://github.com/jmorrell/barkeep",
   "repository": {
