@@ -14,8 +14,9 @@ npm install -g barkeep
 
 ## CLI Usage
 
+In your project's directory
+
 ```
-cd {{ your project's directory }}
 barkeep
 ```
 
@@ -25,11 +26,18 @@ If you need to serve on a custom port you can do that too
 barkeep -p 8080
 ```
 
+By default, if there is an `index.html` in the current directory, it will open
+in your default browser. You can prevent this behavior by
+
+```
+barkeep --silent
+```
+
 ## Module Usage
 
 You can also require and use barkeep programatically in node.
 
-```
+```javascript
 var barkeep = require('barkeep');
 
 barkeep(directory).listen(staticPort, livereloadPort, onListen);
@@ -37,7 +45,7 @@ barkeep(directory).listen(staticPort, livereloadPort, onListen);
 
 All arguments to `listen` are optional. You can pass only the callback if you'd like. 
 
-```
+```javascript
 barkeep(directory).listen(onListen);
 ```
 
