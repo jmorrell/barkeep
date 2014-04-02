@@ -4,6 +4,7 @@ var program = require('commander');
 var open = require('open');
 var fs = require('fs');
 var path = require('path');
+var address = require('address');
 
 var barkeep = require('..');
 var packageJSON = require('../package.json');
@@ -20,12 +21,20 @@ barkeep(process.cwd())
 function onListening() {
   var ip = this.address().address;
   var port = this.address().port;
-  var address = 'http://' + ip + ':' + port
-  console.log('Listening at ' + address);
+  var local = 'http://' + ip + ':' + port
+  var remote = 'http://' + address.ip() + ':' + port;
+
+  console.log('');
+  console.log('Listening at:');
+  console.log(local);
+  console.log('');
+  console.log('Open on another device on your current network at this url:');
+  console.log(remote);
+  console.log('');
 
   // If there is an index.html file at the cwd, open a browser
   if (fs.existsSync(path.join(process.cwd(), 'index.html'))) {
-    open(address);
+    open(local);
   }
 }
 
