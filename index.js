@@ -7,7 +7,13 @@ var path = require('path');
 var inject = require('./src/inject.js');
 var urlCallback = require('./src/url-callback.js');
 
+module.exports = Barkeep;
+
 function Barkeep(root) {
+  if (!(this instanceof Barkeep)) {
+    return new Barkeep(root);
+  }
+
   this._addToGaze = this._addToGaze.bind(this);
   this.root = root;
   this.server = tinylr();
@@ -16,13 +22,9 @@ function Barkeep(root) {
   this.watchedFiles = [];
 }
 
-module.exports = function barkeep(root) {
-  return new Barkeep(root);
-};
-
 Barkeep.prototype.listen = function(staticPort, lrPort, done) {
   var self = this;
-  staticPort = staticPort || 9000;
+  staticPort = staticPort || 9091;
   lrPort = lrPort || 35729;
 
   this.server.listen(lrPort);
@@ -39,6 +41,7 @@ Barkeep.prototype.listen = function(staticPort, lrPort, done) {
     .listen(staticPort, done);
 };
 
+// Add a file to be watched for changes
 Barkeep.prototype._addToGaze = function(url) {
   // If it's a directory, add index.html to the end
   if (/\/$/.test(url)) {

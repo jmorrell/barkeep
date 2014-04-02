@@ -1,9 +1,31 @@
 #!/usr/bin/env node
 
-var barkeep = require('..');
+var program = require('commander');
+var open = require('open');
+var fs = require('fs');
+var path = require('path');
 
-barkeep(process.cwd()).listen(9000, 35729, onListening);
+var barkeep = require('..');
+var packageJSON = require('../package.json');
+
+program
+  .version(packageJSON.version)
+  .option('-p, --port [9091]', 'The port to serve the files over', parseInt)
+  .option('-l, --lrport [35729]', 'The port that livereload will run on', parseInt)
+  .parse(process.argv);
+
+barkeep(process.cwd())
+  .listen(program.port, program.lrport, onListening);
 
 function onListening() {
-  console.log('Listening at http://localhost:9000');
+  var ip = this.address().address;
+  var port = this.address().port;
+  var address = 'http://' + ip + ':' + port
+  console.log('Listening at ' + address);
+
+  // If there is an index.html file at the cwd, open a browser
+  if (fs.existsSync(path.join(process.cwd(), 'index.html'))) {
+    open(address);
+  }
 }
+
