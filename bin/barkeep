@@ -5,12 +5,14 @@ var open = require('open');
 var fs = require('fs');
 var path = require('path');
 var address = require('address');
+var chalk = require('chalk');
 
 var barkeep = require('..');
 var packageJSON = require('../package.json');
 
 program
   .version(packageJSON.version)
+  .option('-s, --silent', 'Prevent the browser from automatically opening')
   .option('-p, --port [9091]', 'The port to serve the files over', parseInt)
   .option('-l, --lrport [35729]', 'The port that livereload will run on', parseInt)
   .parse(process.argv);
@@ -25,15 +27,15 @@ function onListening() {
   var remote = 'http://' + address.ip() + ':' + port;
 
   console.log('');
-  console.log('Listening at:');
-  console.log(local);
+  console.log(chalk.yellow('Listening at:'));
+  console.log(chalk.yellow.underline(local));
   console.log('');
-  console.log('Open on another device on your current network at this url:');
-  console.log(remote);
+  console.log(chalk.yellow('Open on another device on your current network at this url:'));
+  console.log(chalk.yellow.underline(remote));
   console.log('');
 
   // If there is an index.html file at the cwd, open a browser
-  if (fs.existsSync(path.join(process.cwd(), 'index.html'))) {
+  if (fs.existsSync(path.join(process.cwd(), 'index.html')) && !program.silent) {
     open(local);
   }
 }
