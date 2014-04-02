@@ -12,16 +12,38 @@ anything changes.
 npm install -g barkeep
 ```
 
-## Usage
+## CLI Usage
 
 ```
 cd {{ your project's directory }}
 barkeep
 ```
 
+If you need to serve on a custom port you can do that too
+
+```
+barkeep -p 8080
+```
+
+## Module Usage
+
+You can also require and use barkeep programatically in node.
+
+```
+var barkeep = require('barkeep');
+
+barkeep(directory).listen(staticPort, livereloadPort, onListen);
+```
+
+All arguments to `listen` are optional. You can pass only the callback if you'd like. 
+
+```
+barkeep(directory).listen(onListen);
+```
+
 ## Notes
 
-This works by automatically inserting a liverelead script right before the close of the
+This works by automagically inserting a liverelead script right before the close of the
 body element. This might not work for all set ups. You can insert the script manually
 by adding this tag to your HTML:
 

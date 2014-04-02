@@ -23,7 +23,15 @@ function Barkeep(root) {
 }
 
 Barkeep.prototype.listen = function(staticPort, lrPort, done) {
-  var self = this;
+  // Optionally accept the callback as either the first or second argument
+  if (typeof staticPort === 'function') {
+    done = staticPort;
+    staticPort = null;
+  } else if (typeof lrPort === 'function') {
+    done = lrPort;
+    lrPort = null;
+  }
+
   staticPort = staticPort || 9091;
   lrPort = lrPort || 35729;
 
@@ -31,7 +39,7 @@ Barkeep.prototype.listen = function(staticPort, lrPort, done) {
 
   this.gaze.on('changed', function(filepath) {
     self.server.changed({ body: { files: filepath.replace(self.root, '') } });
-  });
+  }.bind(this));
 
   return this.app
     .use(cors())
