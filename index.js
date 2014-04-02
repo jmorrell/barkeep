@@ -4,8 +4,8 @@ var Gaze = require('gaze').Gaze;
 var cors = require('cors');
 var path = require('path');
 
-var inject = require('./src/inject.js');
-var urlCallback = require('./src/url-callback.js');
+var injectLivereload = require('./src/inject-livereload');
+var urlCallback = require('./src/url-callback');
 
 module.exports = Barkeep;
 
@@ -38,12 +38,12 @@ Barkeep.prototype.listen = function(staticPort, lrPort, done) {
   this.server.listen(lrPort);
 
   this.gaze.on('changed', function(filepath) {
-    self.server.changed({ body: { files: filepath.replace(self.root, '') } });
+    this.server.changed({ body: { files: filepath.replace(this.root, '') } });
   }.bind(this));
 
   return this.app
     .use(cors())
-    .use(inject('http://localhost:' + lrPort + '/livereload.js'))
+    .use(injectLivereload(lrPort))
     .use(urlCallback(this._addToGaze))
     .use(express.static(this.root))
     .listen(staticPort, done);
