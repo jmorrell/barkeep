@@ -15,7 +15,7 @@ function Barkeep(root) {
   }
 
   this._addToGaze = this._addToGaze.bind(this);
-  this.root = root;
+  this.root = path.resolve(root);
   this.server = tinylr();
   this.app = express();
   this.gaze = new Gaze(null, { debounceDelay: 200 });
